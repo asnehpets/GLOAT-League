@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#10284b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="GLOAT" />
+  <title>GLOAT League</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="authRoot" class="auth-root"></div>
+  <div id="app" class="app-shell" hidden>
+    <header class="topbar">
+      <button id="brandButton" class="brand" aria-label="Go to home"><img src="assets/gloat-logo.png" alt="GLOAT logo" /></button>
+      <div class="topbar-actions">
+        <button id="profileButton" class="profile-chip" aria-label="Open profile"></button>
+        <button id="menuButton" class="menu-button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
+    </header>
+
+    <nav id="mobileMenu" class="mobile-menu" hidden>
+      <button data-view="home">Home</button>
+      <button data-view="schedule">Schedule</button>
+      <button data-view="games">Games</button>
+      <button data-view="week">Week Setup</button>
+      <button data-view="scores">Enter / View Scores</button>
+      <button data-view="standings">Standings</button>
+      <button data-view="review">Weekly Review</button>
+      <button data-view="feed">League Feed</button>
+      <button data-view="history">League History</button>
+      <button data-view="profile">Profile</button>
+      <button data-view="admin" data-admin-only>Admin</button>
+    </nav>
+
+    <section class="control-strip">
+      <label><span>Season</span><select id="seasonSelect"></select></label>
+      <label><span>Week</span><select id="weekSelect"></select></label>
+    </section>
+
+    <main id="mainContent" class="main-content" aria-live="polite"></main>
+
+    <nav class="bottom-nav" aria-label="Primary navigation">
+      <button data-view="home" class="active"><span>⌂</span>Home</button>
+      <button data-view="schedule"><span>▣</span>Schedule</button>
+      <button data-view="games"><span>♠</span>Games</button>
+      <button data-view="standings"><span>★</span>Standings</button>
+      <button data-view="feed"><span>●</span>Feed</button>
+    </nav>
+  </div>
+
+  <div id="modalRoot" class="modal-root" hidden></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input id="importInput" type="file" accept="application/json" hidden />
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
