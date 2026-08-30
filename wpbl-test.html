@@ -2,246 +2,356 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d2a4f">
 <title>WPBL — Wall Pickleball League</title>
-
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:#f4f7fb;
-  color:#172033;
-}
-header{
-  background:#0d2a4f;
-  color:white;
-  padding:18px;
-}
-header h1{margin:0;font-size:26px}
-header p{margin:4px 0 0;opacity:.8}
-main{
-  max-width:700px;
-  margin:auto;
-  padding:16px 14px 90px;
-}
-.card{
-  background:white;
-  border:1px solid #dfe5ee;
-  border-radius:16px;
-  padding:16px;
-  margin-bottom:14px;
-}
-.blue{
-  background:#0d2a4f;
-  color:white;
-}
-.badge{
-  display:inline-block;
-  background:#eaf1fb;
-  color:#1459a6;
-  padding:5px 9px;
-  border-radius:99px;
-  font-size:12px;
-  font-weight:700;
-}
-button{
-  border:0;
-  border-radius:10px;
-  padding:10px 13px;
-  background:#1459a6;
-  color:white;
-  font-weight:700;
-}
-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  background:white;
-  border-top:1px solid #ddd;
-}
-nav button{
-  background:white;
-  color:#667085;
-  border-radius:0;
-  padding:14px 2px;
-  font-size:12px;
-}
-nav button.active{color:#1459a6}
-.view{display:none}
-.view.active{display:block}
-table{width:100%;border-collapse:collapse}
-td,th{padding:9px;border-bottom:1px solid #eee;text-align:left}
+:root{--navy:#0d2a4f;--blue:#1459a6;--red:#d8242f;--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#6b7485;--line:#dfe5ee;--ok:#147d4b;--warn:#a35a00}
+*{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}.hidden{display:none!important}
+.app{min-height:100vh}.topbar{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px #0002}
+.logo{width:54px;height:36px;object-fit:contain;border-radius:6px}.brand{display:flex;align-items:center;gap:10px;flex:1}.brand strong{font-size:19px}.brand small{display:block;opacity:.8}
+.top-actions{display:flex;gap:8px}.iconbtn{background:#ffffff18;border:1px solid #ffffff33;color:#fff;border-radius:10px;padding:9px 11px}
+.control{background:#fff;border-bottom:1px solid var(--line);padding:10px 14px;display:flex;gap:10px;align-items:center;overflow:auto;position:sticky;top:57px;z-index:15}
+.control label{font-size:12px;color:var(--muted)}select,input,textarea{border:1px solid var(--line);border-radius:10px;padding:9px;background:#fff;color:var(--text)}
+select{min-width:130px}.main{max-width:980px;margin:0 auto;padding:16px 14px 88px}
+.nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:30;padding-bottom:env(safe-area-inset-bottom)}
+.nav button{border:0;background:#fff;padding:10px 4px 8px;color:#657087;font-size:11px}.nav button.active{color:var(--blue);font-weight:700}.nav span{display:block;font-size:20px;margin-bottom:2px}
+h1{font-size:25px;margin:2px 0 4px}h2{font-size:19px;margin:0 0 12px}h3{font-size:16px;margin:0 0 10px}.sub{color:var(--muted);margin:0 0 16px}
+.grid{display:grid;gap:12px}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 3px 14px #17315a0a;margin-bottom:12px}
+.hero{background:linear-gradient(135deg,var(--navy),#173e72);color:#fff;border:0}.hero .sub{color:#dce8fa}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.kpi{background:#f7f9fc;border-radius:12px;padding:11px;text-align:center}.kpi b{font-size:20px;display:block}.kpi small{color:var(--muted)}
+@media(max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.btn{border:0;border-radius:11px;padding:10px 13px;font-weight:700;background:var(--blue);color:#fff}.btn.red{background:var(--red)}.btn.ghost{background:#eef3f9;color:var(--navy)}.btn.ok{background:var(--ok)}.btn.sm{padding:7px 9px;font-size:13px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row.between{justify-content:space-between}.stack{display:flex;flex-direction:column;gap:9px}
+.badge{display:inline-block;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700;background:#eaf1fb;color:var(--blue)}.badge.red{background:#fdecef;color:var(--red)}.badge.ok{background:#e9f7f0;color:var(--ok)}.badge.warn{background:#fff2df;color:var(--warn)}
+.list{display:flex;flex-direction:column;gap:8px}.item{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}.muted{color:var(--muted)}.tiny{font-size:12px}.right{text-align:right}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px 7px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted);font-size:12px}.tablewrap{overflow:auto}
+.game{border-left:5px solid var(--blue)}.game.current{border-left-color:var(--red);box-shadow:0 0 0 2px #d8242f18}.game.done{opacity:.72}.game.pending{border-left-color:#e1a100}
+.scoreline{font-size:22px;font-weight:800}.vs{font-size:12px;color:var(--muted);font-weight:700}
+.tabs{display:flex;gap:6px;overflow:auto;margin:0 0 12px}.tabs button{white-space:nowrap;border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px}.tabs button.active{background:var(--navy);color:#fff}
+.modalback{position:fixed;inset:0;background:#06152bcc;display:flex;align-items:flex-end;justify-content:center;z-index:80}.modal{width:min(680px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:20px 20px 0 0;padding:18px}
+.auth{min-height:100vh;background:linear-gradient(135deg,#0d2a4f,#164e8d);display:grid;place-items:center;padding:20px}.authbox{background:#fff;width:min(440px,100%);border-radius:20px;padding:22px;text-align:center}.authlogo{width:180px;max-height:120px;object-fit:contain}
+.notice{padding:10px 12px;border-radius:10px;background:#eef5ff;color:#174d85;font-size:13px}.notice.warn{background:#fff3df;color:#8a4e00}.notice.ok{background:#eaf8f0;color:#17623e}
+textarea{width:100%;min-height:90px;resize:vertical}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted);font-weight:600}.field input,.field select{width:100%}
+.pollopt{display:flex;align-items:center;gap:8px;padding:8px;border:1px solid var(--line);border-radius:10px}.thread-title{font-weight:800}.comment{padding:8px 0;border-top:1px solid var(--line)}
+.bracket{display:grid;gap:10px}.matchup{padding:11px;border:1px solid var(--line);border-radius:12px}.seed{font-size:11px;color:var(--muted);margin-right:4px}
+hr{border:0;border-top:1px solid var(--line);margin:14px 0}.danger{color:var(--red)}
 </style>
 </head>
-
 <body>
-
-<header>
-  <h1>WPBL</h1>
-  <p>Wall Pickleball League</p>
-</header>
-
-<main>
-
-<section id="home" class="view active">
-  <div class="card blue">
-    <span class="badge">FALL 2026</span>
-    <h2>Welcome to WPBL</h2>
-    <p>Rotating partners • individual standings</p>
-    <button onclick="show('schedule')">View This Week</button>
-  </div>
-
-  <div class="card">
-    <h3>Your Availability</h3>
-    <button onclick="this.innerText='✓ Playing'">Playing</button>
-    <button style="background:#d8242f"
-      onclick="this.innerText='✕ Not Playing'">
-      Not Playing
-    </button>
-  </div>
-
-  <div class="card">
-    <h3>Current Game</h3>
-    <b>Stephen & Player 2</b>
-    <p>vs.</p>
-    <b>Player 3 & Player 4</b>
-  </div>
-</section>
-
-
-<section id="schedule" class="view">
-  <div class="card">
-    <h2>Week 1 Schedule</h2>
-
-    <p><b>6:00 PM</b><br>
-    Stephen / Player 2 vs Player 3 / Player 4</p>
-
-    <hr>
-
-    <p><b>6:20 PM</b><br>
-    Player 5 / Player 6 vs Player 7 / Player 8</p>
-
-    <hr>
-
-    <p><b>6:40 PM</b><br>
-    Stephen / Player 2 vs Player 5 / Player 6</p>
-  </div>
-</section>
-
-
-<section id="live" class="view">
-  <div class="card">
-    <span class="badge">CURRENT GAME</span>
-    <h2>Stephen & Player 2</h2>
-    <p>vs</p>
-    <h2>Player 3 & Player 4</h2>
-
-    <input id="a" type="number" placeholder="Score"
-      style="width:80px;padding:10px">
-    -
-    <input id="b" type="number" placeholder="Score"
-      style="width:80px;padding:10px">
-
-    <br><br>
-
-    <button onclick="submitScore()">Submit Score</button>
-
-    <p id="result"></p>
-  </div>
-</section>
-
-
-<section id="standings" class="view">
-  <div class="card">
-    <h2>Standings</h2>
-    <p>Ranked by Win % → Head-to-Head → Point Differential</p>
-
-    <table>
-      <tr>
-        <th>#</th>
-        <th>Player</th>
-        <th>W-L</th>
-        <th>Win %</th>
-      </tr>
-
-      <tr>
-        <td>1</td>
-        <td>Stephen</td>
-        <td>4-1</td>
-        <td>80%</td>
-      </tr>
-
-      <tr>
-        <td>2</td>
-        <td>Player 2</td>
-        <td>3-2</td>
-        <td>60%</td>
-      </tr>
-    </table>
-  </div>
-</section>
-
-
-<section id="more" class="view">
-  <div class="card">
-    <h2>League Tools</h2>
-    <p>💬 Message Board</p>
-    <p>🏆 Playoffs</p>
-    <p>👤 Player Profile</p>
-    <p>🛡 Administrator Controls</p>
-    <p>⚙ League Settings</p>
-  </div>
-
-  <div class="card">
-    <h3>Administrator</h3>
-    <p>You will have full control over players, schedules, scores, seasons and playoff seeds.</p>
-  </div>
-</section>
-
-</main>
-
-
-<nav>
-<button class="active" onclick="show('home',this)">Home</button>
-<button onclick="show('schedule',this)">Schedule</button>
-<button onclick="show('live',this)">Live</button>
-<button onclick="show('standings',this)">Standings</button>
-<button onclick="show('more',this)">More</button>
-</nav>
-
-
+<div id="root"></div>
 <script>
-function show(id,button){
-  document.querySelectorAll(".view").forEach(
-    x=>x.classList.remove("active")
-  );
+const LOGO = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20150%22%3E%3Cdefs%3E%3CclipPath%20id%3D%22r%22%3E%3Crect%20width%3D%22240%22%20height%3D%22150%22%20rx%3D%2218%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cg%20clip-path%3D%22url%28%23r%29%22%3E%3Crect%20width%3D%22120%22%20height%3D%22150%22%20fill%3D%22%230d2a4f%22%2F%3E%3Crect%20x%3D%22120%22%20width%3D%22120%22%20height%3D%22150%22%20fill%3D%22%23d8242f%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%22230%22%20height%3D%22140%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%2210%22%2F%3E%3Cg%20fill%3D%22white%22%20stroke%3D%22white%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%22121%22%20cy%3D%2245%22%20r%3D%2215%22%2F%3E%3Cpath%20d%3D%22M105%2033h31l10%205h-42z%22%2F%3E%3Cpath%20d%3D%22M119%2061c-22%209-29%2028-25%2049m27-49c18%207%2028%2025%2030%2048%22%20fill%3D%22none%22%20stroke-width%3D%2214%22%2F%3E%3Cpath%20d%3D%22M98%2077L63%20102M146%2076l34-23%22%20fill%3D%22none%22%20stroke-width%3D%2212%22%2F%3E%3Cpath%20d%3D%22M99%20110l-23%2029M147%20108l23%2031%22%20fill%3D%22none%22%20stroke-width%3D%2213%22%2F%3E%3Crect%20x%3D%2242%22%20y%3D%2294%22%20width%3D%2229%22%20height%3D%2237%22%20rx%3D%2210%22%20transform%3D%22rotate%28-28%2056%20113%29%22%2F%3E%3Crect%20x%3D%22176%22%20y%3D%2236%22%20width%3D%2225%22%20height%3D%2238%22%20rx%3D%224%22%2F%3E%3Cpath%20d%3D%22M178%2039c8-10%2018-8%2021%200%22%20fill%3D%22none%22%20stroke-width%3D%225%22%2F%3E%3Ccircle%20cx%3D%2245%22%20cy%3D%2273%22%20r%3D%2211%22%20fill%3D%22none%22%20stroke-width%3D%225%22%2F%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2269%22%20r%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2272%22%20r%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%2278%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E';
+const KEY="wpbl_state_v1";
+const SESSION="wpbl_session_v1";
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const uid=(p="id")=>p+"_"+Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4);
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const fmtTime=d=>new Date(d).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
+const fmtDate=d=>new Date(d+"T12:00:00").toLocaleDateString([], {month:"short",day:"numeric",year:"numeric"});
+const addMin=(d,m)=>new Date(new Date(d).getTime()+m*60000).toISOString();
+const today=()=>new Date().toISOString().slice(0,10);
 
-  document.getElementById(id).classList.add("active");
+function fresh(){
+  const admin={id:"p_admin",name:"Stephen",email:"",role:"admin",active:true,sub:false};
+  const season={id:"s1",name:"Fall 2026",format:"individual",status:"active",gameDay:today(),startTime:"18:00",gamesPerPair:2,target:11,winBy:2,bestOf:1,rsvpDays:2,playoffs:true,playoffQualifiers:4,players:["p_admin"],weeks:[]};
+  return {version:1,players:[admin],seasons:[season],activeSeason:"s1",board:[],audit:[],settings:{gameMinutes:18,globalBoard:true}};
+}
+let state=load(), currentView="home", session=localStorage.getItem(SESSION)||"";
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||fresh()}catch(e){return fresh()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function me(){return state.players.find(p=>p.id===session)}
+function season(){return state.seasons.find(s=>s.id===state.activeSeason)||state.seasons[0]}
+function week(){let s=season(); if(!s)return null; return s.weeks.find(w=>w.id===s.activeWeek)||s.weeks.at(-1)||null}
+function player(id){return state.players.find(p=>p.id===id)}
+function pname(id){return player(id)?.name||"Unknown"}
+function isAdmin(){return me()?.role==="admin"}
+function log(action){state.audit.unshift({at:new Date().toISOString(),by:me()?.name||"System",action});state.audit=state.audit.slice(0,100);save()}
+function toast(msg){let el=$("#toast"); if(!el)return alert(msg);el.textContent=msg;el.style.opacity=1;setTimeout(()=>el.style.opacity=0,1800)}
+function deadlineFor(s,w){let d=new Date((w.date||s.gameDay)+"T"+(s.startTime||"18:00"));d.setDate(d.getDate()-(s.rsvpDays||2));return d}
+function isLocked(s,w){return new Date()>deadlineFor(s,w) && !w.rsvpReopened}
 
-  document.querySelectorAll("nav button").forEach(
-    x=>x.classList.remove("active")
-  );
+function render(){
+ if(!session || !me()) return renderAuth();
+ const s=season();
+ root.innerHTML=`<div class="app">
+ <header class="topbar"><div class="brand"><img class="logo" src="${LOGO}"><div><strong>WPBL</strong><small>Wall Pickleball League</small></div></div>
+ <div class="top-actions"><button class="iconbtn" onclick="go('board')">💬</button><button class="iconbtn" onclick="go('profile')">👤</button></div></header>
+ <div class="control"><label>League / Season<br><select id="seasonSel">${state.seasons.map(x=>`<option value="${x.id}" ${x.id===state.activeSeason?"selected":""}>${esc(x.name)}</option>`).join("")}</select></label>
+ ${s?`<span class="badge ${s.format==="individual"?"":"red"}">${s.format==="individual"?"Rotating Partners":"Fixed Teams"}</span>`:""}</div>
+ <main id="main" class="main"></main>
+ <nav class="nav">
+ ${navbtn("home","⌂","Home")}${navbtn("schedule","▣","Schedule")}${navbtn("live","▶","Live")}${navbtn("standings","★","Standings")}${navbtn("more","☰","More")}
+ </nav><div id="modalRoot"></div><div id="toast" style="position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#172033;color:#fff;padding:9px 13px;border-radius:999px;z-index:100;opacity:0;transition:.2s"></div></div>`;
+ $("#seasonSel").onchange=e=>{state.activeSeason=e.target.value;save();render()};
+ renderView();
+}
+function navbtn(v,i,l){return `<button onclick="go('${v}')" class="${currentView===v?"active":""}"><span>${i}</span>${l}</button>`}
+function go(v){currentView=v;renderView(); $$(".nav button").forEach(b=>b.classList.toggle("active",b.getAttribute("onclick")?.includes(`'${v}'`)))}
+function renderAuth(){
+ root.innerHTML=`<div class="auth"><div class="authbox"><img class="authlogo" src="${LOGO}"><h1>WPBL</h1><p class="sub">Wall Pickleball League</p>
+ <div class="notice">Invite-only league. Choose your invited player profile to enter this prototype.</div><br>
+ <div class="field"><label>Player</label><select id="loginPlayer">${state.players.filter(p=>p.active).map(p=>`<option value="${p.id}">${esc(p.name)}${p.role==="admin"?" — Admin":""}</option>`).join("")}</select></div><br>
+ <button class="btn" style="width:100%" onclick="login()">Enter WPBL</button>
+ <p class="tiny muted">Production version will use secure invite links and account authentication.</p></div></div>`
+}
+function login(){session=$("#loginPlayer").value;localStorage.setItem(SESSION,session);render()}
+function logout(){localStorage.removeItem(SESSION);session="";render()}
 
-  if(button) button.classList.add("active");
+function renderView(){
+ const el=$("#main"); if(!el)return;
+ const map={home:homeView,schedule:scheduleView,live:liveView,standings:standingsView,board:boardView,more:moreView,profile:profileView,admin:adminView,playoffs:playoffsView};
+ (map[currentView]||homeView)(el);
+}
+function homeView(el){
+ const s=season(),w=week(); let mine=w?.availability?.[me().id];
+ const cur=w?.games?.find(g=>g.status!=="confirmed");
+ el.innerHTML=`<h1>${esc(s?.name||"WPBL")}</h1><p class="sub">${s?.format==="individual"?"Individual standings • weekly rotating partners":"Fixed-team league"}</p>
+ <div class="card hero"><h2>${w?`Week ${w.number} — ${fmtDate(w.date)}`:"Season ready"}</h2>
+ <p class="sub">${w?`RSVP deadline: ${deadlineFor(s,w).toLocaleString([], {month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}`:"Admin can create the first week when ready."}</p>
+ ${w?`<div class="row"><button class="btn ${mine==="in"?"ok":"ghost"}" onclick="rsvp('in')">✓ Playing</button><button class="btn ${mine==="out"?"red":"ghost"}" onclick="rsvp('out')">✕ Not Playing</button></div>`:""}</div>
+ ${cur?`<div class="card"><div class="row between"><h2>Current / Next Game</h2><span class="badge red">${cur.status==="pending"?"Awaiting confirmation":"Up next"}</span></div>${gameSummary(cur,w)}<button class="btn" onclick="go('live')">Open Live Game</button></div>`:""}
+ <div class="grid grid2">
+ <div class="card"><h3>Standings</h3>${topStandings(4)}<button class="btn ghost sm" onclick="go('standings')">Full standings</button></div>
+ <div class="card"><h3>League Board</h3>${state.board.length?state.board.slice(0,3).map(t=>`<div class="item"><b>${esc(t.title)}</b><div class="tiny muted">${t.comments.length} comments</div></div>`).join(""):`<p class="muted">No posts yet.</p>`}<button class="btn ghost sm" onclick="go('board')">Open message board</button></div></div>`
+}
+function rsvp(v){
+ let s=season(),w=week(); if(!w)return; if(isLocked(s,w)&&!isAdmin())return toast("RSVP is locked");
+ w.availability=w.availability||{}; w.availability[me().id]=v;save();renderView()
+}
+function gameSummary(g,w){
+ return `<div class="row between"><div><b>${g.teamA.map(pname).join(" & ")}</b><div class="vs">VS</div><b>${g.teamB.map(pname).join(" & ")}</b></div>
+ <div class="right"><div class="tiny muted">${g.estimate?fmtTime(g.estimate):""}</div>${g.score?`<div class="scoreline">${g.score.a}–${g.score.b}</div>`:""}</div></div>`;
 }
 
-function submitScore(){
-  const a=document.getElementById("a").value;
-  const b=document.getElementById("b").value;
-
-  if(a==="" || b===""){
-    alert("Enter both scores.");
-    return;
-  }
-
-  document.getElementById("result").innerHTML=
-    "<b>Score submitted: "+a+"-"+b+"</b><br>Waiting for opposing team confirmation.";
+function scheduleView(el){
+ const s=season(),w=week();
+ el.innerHTML=`<div class="row between"><div><h1>Schedule</h1><p class="sub">${w?`Week ${w.number} • ${fmtDate(w.date)}`:"No week created"}</p></div>${isAdmin()?`<button class="btn" onclick="openWeekSetup()">Week Setup</button>`:""}</div>
+ ${!w?`<div class="card"><p>No weekly schedule yet.</p></div>`:`
+ <div class="card"><div class="row between"><div><b>RSVP</b><div class="tiny muted">${isLocked(s,w)?"Locked":"Open"} until ${deadlineFor(s,w).toLocaleString()}</div></div>${isAdmin()?`<button class="btn ghost sm" onclick="toggleRsvp()">${w.rsvpReopened?"Relock":"Reopen RSVP"}</button>`:""}</div><hr>
+ ${s.players.map(id=>`<span class="badge ${(w.availability||{})[id]==="out"?"red":(w.availability||{})[id]==="in"?"ok":""}">${esc(pname(id))}: ${(w.availability||{})[id]==="in"?"Playing":(w.availability||{})[id]==="out"?"Out":"No response"}</span> `).join("")}</div>
+ <div class="card"><div class="row between"><h2>Game Order</h2>${isAdmin()?`<button class="btn ghost sm" onclick="generateSchedule()">Generate / Regenerate</button>`:""}</div>
+ ${(w.games||[]).length?(w.games.map((g,i)=>`<div class="item game ${g.status==="confirmed"?"done":g.status==="pending"?"pending":i===nextGameIndex(w)?"current":""}">
+ <div class="row between"><b>Game ${i+1}</b><span class="tiny muted">${g.estimate?fmtTime(g.estimate):""}</span></div>${gameSummary(g,w)}
+ ${isAdmin()?`<div class="row"><button class="btn ghost sm" onclick="moveGame(${i},-1)">↑</button><button class="btn ghost sm" onclick="moveGame(${i},1)">↓</button></div>`:""}</div>`).join("")):`<p class="muted">No games generated yet.</p>`}</div>`}`;
 }
+function toggleRsvp(){let w=week();w.rsvpReopened=!w.rsvpReopened;save();renderView()}
+function nextGameIndex(w){let i=w.games.findIndex(g=>g.status!=="confirmed");return i<0?w.games.length:i}
+function moveGame(i,d){let w=week(),j=i+d;if(j<0||j>=w.games.length)return;[w.games[i],w.games[j]]=[w.games[j],w.games[i]];recalcTimes(w);save();renderView()}
+function openWeekSetup(){
+ const s=season(); modal(`<h2>Create / Update Week</h2>
+ <div class="grid grid2"><div class="field"><label>Week number</label><input id="wn" type="number" value="${(s.weeks.at(-1)?.number||0)+1}"></div><div class="field"><label>Game date</label><input id="wd" type="date" value="${s.gameDay||today()}"></div></div>
+ <br><button class="btn" onclick="createWeek()">Save Week</button>`)
+}
+function createWeek(){
+ let s=season(),n=+$("#wn").value,d=$("#wd").value; let w=s.weeks.find(x=>x.number===n);
+ if(!w){w={id:uid("w"),number:n,date:d,availability:{},games:[],partners:{},rsvpReopened:false};s.weeks.push(w)}
+ else w.date=d;
+ s.activeWeek=w.id;save();closeModal();renderView()
+}
+function generateSchedule(){
+ let s=season(),w=week();if(!w)return;
+ const ids=s.players.filter(id=>(w.availability||{})[id]!=="out" && player(id)?.active);
+ if(s.format==="individual" && ids.length<4)return toast("Need at least 4 available players");
+ if(s.format==="fixed" && ids.length<4)return toast("Need at least 4 available players");
+ let pairings=[];
+ if(s.format==="individual"){
+   pairings=bestPairs(ids,s,w);
+ } else {
+   const teams=(s.teams||[]).filter(t=>t.every(id=>ids.includes(id)));
+   if(teams.length<2)return toast("Set at least 2 available teams in Admin");
+   for(let i=0;i<teams.length;i++)for(let j=i+1;j<teams.length;j++)pairings.push([teams[i],teams[j]]);
+ }
+ let games=[], target=Math.max(1,s.gamesPerPair||1);
+ if(s.format==="individual"){
+   // weekly partners stay fixed; pair teams against other weekly pairs
+   let teams=pairings;
+   let all=[];for(let i=0;i<teams.length;i++)for(let j=i+1;j<teams.length;j++)all.push([teams[i],teams[j]]);
+   all=sortOpponentVariety(all,s);
+   for(let k=0;k<target;k++) games.push(...all);
+ }else{
+   for(let k=0;k<target;k++)games.push(...pairings);
+ }
+ games=orderForRest(games);
+ w.games=games.map((x,i)=>({id:uid("g"),teamA:x[0],teamB:x[1],status:"scheduled",score:null,submittedBy:null,confirmedBy:null,estimate:null}));
+ w.partners={}; if(s.format==="individual")pairings.forEach(t=>t.forEach(id=>w.partners[id]=t.filter(x=>x!==id)));
+ recalcTimes(w);save();log(`Generated Week ${w.number} schedule`);renderView();toast("Schedule generated")
+}
+function pairHistory(s,a,b){
+ let c=0;s.weeks.forEach(w=>{let p=w.partners||{};if((p[a]||[]).includes(b))c++});return c
+}
+function bestPairs(ids,s,w){
+ let remaining=[...ids],teams=[];
+ while(remaining.length>=2){
+   let a=remaining.shift(), choices=remaining.map(b=>({b,c:pairHistory(s,a,b),r:Math.random()})).sort((x,y)=>x.c-y.c||x.r-y.r);
+   let b=choices[0].b; remaining=remaining.filter(x=>x!==b);teams.push([a,b]);
+ }
+ return teams
+}
+function oppCount(s,t1,t2){
+ let set1=new Set(t1),set2=new Set(t2),c=0;
+ s.weeks.forEach(w=>(w.games||[]).filter(g=>g.status==="confirmed").forEach(g=>{
+   let A=new Set(g.teamA),B=new Set(g.teamB);
+   if(([...set1].some(x=>A.has(x))&&[...set2].some(x=>B.has(x)))||([...set1].some(x=>B.has(x))&&[...set2].some(x=>A.has(x))))c++
+ }));return c
+}
+function sortOpponentVariety(all,s){return all.map(x=>({x,c:oppCount(s,x[0],x[1]),r:Math.random()})).sort((a,b)=>a.c-b.c||a.r-b.r).map(z=>z.x)}
+function orderForRest(games){
+ let rem=[...games],out=[],lastPlayers=new Set();
+ while(rem.length){
+   let idx=rem.findIndex(x=>![...x[0],...x[1]].some(p=>lastPlayers.has(p)));
+   if(idx<0)idx=0;let g=rem.splice(idx,1)[0];out.push(g);lastPlayers=new Set([...g[0],...g[1]])
+ }return out
+}
+function recalcTimes(w){
+ let s=season(), start=new Date(`${w.date}T${s.startTime||"18:00"}`);
+ (w.games||[]).forEach((g,i)=>g.estimate=addMin(start,i*(state.settings.gameMinutes||18)))
+}
+
+function liveView(el){
+ const s=season(),w=week(); if(!w)return el.innerHTML=`<h1>Live Games</h1><div class="card">No week scheduled.</div>`;
+ let idx=nextGameIndex(w),g=w.games[idx],on=w.games[idx+1];
+ el.innerHTML=`<h1>League Night</h1><p class="sub">One game at a time • scores must be confirmed before advancing</p>
+ ${g?`<div class="card game current"><div class="row between"><span class="badge red">CURRENT GAME ${idx+1}</span><b>${g.estimate?fmtTime(g.estimate):""}</b></div><br>${gameSummary(g,w)}
+ ${g.status==="scheduled"?scoreEntry(g):pendingConfirm(g)}</div>`:`<div class="card"><h2>All games complete 🎉</h2><button class="btn" onclick="go('standings')">View standings</button></div>`}
+ ${on?`<div class="card"><span class="badge">ON DECK</span><br><br>${gameSummary(on,w)}</div>`:""}
+ <div class="card"><h3>Full Order</h3>${w.games.map((x,i)=>`<div class="row between item"><span>${i+1}. ${esc(x.teamA.map(pname).join(" / "))} vs ${esc(x.teamB.map(pname).join(" / "))}</span><span class="badge ${x.status==="confirmed"?"ok":x.status==="pending"?"warn":""}">${x.status}</span></div>`).join("")}</div>`
+}
+function canParticipate(g){return [...g.teamA,...g.teamB].includes(me().id)}
+function scoreEntry(g){
+ if(!canParticipate(g)&&!isAdmin())return `<p class="notice">Only players in this game can enter the score.</p>`;
+ return `<hr><h3>Enter final score</h3><div class="row"><input id="sa" type="number" min="0" placeholder="${g.teamA.map(pname).join(" & ")}"><span>–</span><input id="sb" type="number" min="0" placeholder="${g.teamB.map(pname).join(" & ")}"><button class="btn" onclick="submitScore('${g.id}')">Submit</button></div>`
+}
+function submitScore(id){
+ let w=week(),g=w.games.find(x=>x.id===id),a=+$("#sa").value,b=+$("#sb").value;if(a===b||a<0||b<0)return toast("Enter a valid final score");
+ g.score={a,b};g.submittedBy=me().id;g.status="pending";save();renderView()
+}
+function pendingConfirm(g){
+ let submitTeam=g.teamA.includes(g.submittedBy)?"A":"B",opp=submitTeam==="A"?g.teamB:g.teamA;
+ let allowed=opp.includes(me().id)||isAdmin();
+ return `<hr><div class="notice warn"><b>Score awaiting opponent confirmation</b><br>${g.teamA.map(pname).join(" & ")} ${g.score.a} – ${g.score.b} ${g.teamB.map(pname).join(" & ")}</div><br>
+ ${allowed?`<div class="row"><button class="btn ok" onclick="confirmScore('${g.id}')">Confirm & Advance</button><button class="btn ghost" onclick="editPending('${g.id}')">Correct Score</button></div>`:`<p class="tiny muted">A player from the opposing side must confirm before the next game begins.</p>`}`
+}
+function editPending(id){let g=week().games.find(x=>x.id===id);g.status="scheduled";g.score=null;g.submittedBy=null;save();renderView()}
+function confirmScore(id){
+ let s=season(),w=week(),g=w.games.find(x=>x.id===id);g.status="confirmed";g.confirmedBy=me().id;g.completedAt=new Date().toISOString();
+ recalcTimesFromActual(w);save();log(`Confirmed Week ${w.number} game score`);renderView()
+}
+function recalcTimesFromActual(w){
+ let idx=nextGameIndex(w), base=new Date(); for(let i=idx;i<w.games.length;i++)w.games[i].estimate=addMin(base,(i-idx)*(state.settings.gameMinutes||18))
+}
+
+function standingsData(){
+ let s=season(),rows={};s.players.forEach(id=>rows[id]={id,w:0,l:0,gp:0,pf:0,pa:0,pd:0,h2h:{}});
+ s.weeks.forEach(w=>(w.games||[]).filter(g=>g.status==="confirmed").forEach(g=>{
+   let aWin=g.score.a>g.score.b;
+   g.teamA.forEach(id=>{if(!rows[id])return;rows[id].gp++;rows[id].pf+=g.score.a;rows[id].pa+=g.score.b;aWin?rows[id].w++:rows[id].l++;
+     g.teamB.forEach(o=>rows[id].h2h[o]=(rows[id].h2h[o]||0)+(aWin?1:-1))});
+   g.teamB.forEach(id=>{if(!rows[id])return;rows[id].gp++;rows[id].pf+=g.score.b;rows[id].pa+=g.score.a;aWin?rows[id].l++:rows[id].w++;
+     g.teamA.forEach(o=>rows[id].h2h[o]=(rows[id].h2h[o]||0)+(aWin?-1:1))});
+ }));
+ let arr=Object.values(rows).map(r=>({...r,pct:r.gp?r.w/r.gp:0,pd:r.pf-r.pa}));
+ arr.sort((a,b)=>b.pct-a.pct||headToHead(a,b)||b.pd-a.pd||b.w-a.w||pname(a.id).localeCompare(pname(b.id)));
+ return arr
+}
+function headToHead(a,b){return (b.h2h[a.id]||0)-(a.h2h[b.id]||0)}
+function topStandings(n){let a=standingsData().slice(0,n);return a.length?`<table><tr><th>#</th><th>Player</th><th>W-L</th><th>Win%</th></tr>${a.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(pname(r.id))}</td><td>${r.w}-${r.l}</td><td>${(r.pct*100).toFixed(1)}%</td></tr>`).join("")}</table>`:`<p class="muted">No results yet.</p>`}
+function standingsView(el){
+ let a=standingsData();
+ el.innerHTML=`<div class="row between"><div><h1>Standings</h1><p class="sub">Win % → head-to-head → point differential</p></div>${season().playoffs?`<button class="btn" onclick="go('playoffs')">Playoffs</button>`:""}</div>
+ <div class="card tablewrap"><table><tr><th>#</th><th>Player</th><th>W-L</th><th>GP</th><th>Win %</th><th>PF</th><th>PA</th><th>+/-</th></tr>
+ ${a.map((r,i)=>`<tr><td>${i+1}</td><td><b>${esc(pname(r.id))}</b></td><td>${r.w}-${r.l}</td><td>${r.gp}</td><td>${(r.pct*100).toFixed(1)}%</td><td>${r.pf}</td><td>${r.pa}</td><td>${r.pd>0?"+":""}${r.pd}</td></tr>`).join("")}</table></div>`
+}
+function playoffsView(el){
+ let s=season(),q=Math.min(s.playoffQualifiers||4,standingsData().length),seeds=standingsData().slice(0,q);
+ let matches=[];for(let i=0;i<Math.floor(q/2);i++)matches.push([seeds[i],seeds[q-1-i]]);
+ el.innerHTML=`<div class="row between"><div><h1>Playoffs</h1><p class="sub">Auto-seeded from final standings</p></div><button class="btn ghost" onclick="go('standings')">Back</button></div>
+ <div class="card"><div class="bracket">${matches.map((m,i)=>`<div class="matchup"><b>Match ${i+1}</b><div><span class="seed">#${i+1}</span>${esc(pname(m[0].id))}</div><div><span class="seed">#${q-i}</span>${esc(pname(m[1].id))}</div></div>`).join("")||"<p>Not enough players yet.</p>"}</div>
+ ${isAdmin()?`<p class="tiny muted">Admin seeding override will be available in production; this prototype shows automatic seeding.</p>`:""}</div>`
+}
+
+function boardView(el){
+ el.innerHTML=`<div class="row between"><div><h1>WPBL Board</h1><p class="sub">One global board for posts, threads and polls</p></div><button class="btn" onclick="newThread()">New Post</button></div>
+ ${state.board.length?state.board.map(t=>threadCard(t)).join(""):`<div class="card"><p>No posts yet. Start the first thread.</p></div>`}`
+}
+function threadCard(t){
+ let votes={};(t.poll?.options||[]).forEach((o,i)=>votes[i]=Object.values(t.poll.votes||{}).filter(v=>v==i).length);
+ return `<div class="card"><div class="row between"><div><div class="thread-title">${esc(t.title)}</div><div class="tiny muted">${esc(t.author)} • ${new Date(t.at).toLocaleString()}</div></div>${isAdmin()?`<button class="btn ghost sm danger" onclick="deleteThread('${t.id}')">Delete</button>`:""}</div><p>${esc(t.body)}</p>
+ ${t.poll?`<div class="stack">${t.poll.options.map((o,i)=>`<button class="pollopt" onclick="vote('${t.id}',${i})"><span>○</span><span style="flex:1;text-align:left">${esc(o)}</span><b>${votes[i]}</b></button>`).join("")}</div>`:""}
+ <div>${t.comments.map(c=>`<div class="comment"><b>${esc(c.author)}</b> <span class="tiny muted">${new Date(c.at).toLocaleString()}</span><div>${esc(c.body)}</div></div>`).join("")}</div>
+ <div class="row"><input id="c_${t.id}" style="flex:1" placeholder="Add a comment"><button class="btn ghost sm" onclick="comment('${t.id}')">Reply</button></div></div>`
+}
+function newThread(){
+ modal(`<h2>New Board Post</h2><div class="stack"><div class="field"><label>Title</label><input id="tt"></div><div class="field"><label>Post</label><textarea id="tb"></textarea></div>
+ <label><input id="isPoll" type="checkbox"> Add poll</label><div class="field"><label>Poll options (one per line)</label><textarea id="po" placeholder="Option 1&#10;Option 2"></textarea></div>
+ <button class="btn" onclick="saveThread()">Post</button></div>`)
+}
+function saveThread(){
+ let title=$("#tt").value.trim(),body=$("#tb").value.trim();if(!title)return toast("Add a title");
+ let is=$("#isPoll").checked,opts=$("#po").value.split("\n").map(x=>x.trim()).filter(Boolean);
+ state.board.unshift({id:uid("t"),title,body,author:me().name,authorId:me().id,at:new Date().toISOString(),comments:[],poll:is&&opts.length>=2?{options:opts,votes:{}}:null});save();closeModal();renderView()
+}
+function comment(id){let t=state.board.find(x=>x.id===id),v=$("#c_"+id).value.trim();if(!v)return;t.comments.push({id:uid("c"),author:me().name,authorId:me().id,body:v,at:new Date().toISOString()});save();renderView()}
+function vote(id,i){let t=state.board.find(x=>x.id===id);t.poll.votes[me().id]=i;save();renderView()}
+function deleteThread(id){if(!confirm("Delete this thread?"))return;state.board=state.board.filter(x=>x.id!==id);save();renderView()}
+
+function moreView(el){
+ el.innerHTML=`<h1>More</h1><div class="grid grid2">
+ <button class="card" onclick="go('board')" style="text-align:left"><h3>💬 Message Board</h3><span class="muted">Threads, comments and polls</span></button>
+ <button class="card" onclick="go('playoffs')" style="text-align:left"><h3>🏆 Playoffs</h3><span class="muted">Bracket and seeding</span></button>
+ <button class="card" onclick="go('profile')" style="text-align:left"><h3>👤 Profile</h3><span class="muted">Your player account</span></button>
+ ${isAdmin()?`<button class="card" onclick="go('admin')" style="text-align:left"><h3>🛡 Admin</h3><span class="muted">League setup and players</span></button>`:""}</div>`
+}
+function profileView(el){
+ el.innerHTML=`<h1>Profile</h1><div class="card"><h2>${esc(me().name)}</h2><p><span class="badge ${isAdmin()?"red":""}">${isAdmin()?"Administrator":"Player"}</span></p><p class="muted">${esc(me().email||"No email set in prototype")}</p><button class="btn ghost" onclick="logout()">Sign Out</button></div>`
+}
+function adminView(el){
+ if(!isAdmin())return go("home");let s=season();
+ el.innerHTML=`<div class="row between"><div><h1>Admin</h1><p class="sub">You control league settings and overrides</p></div><button class="btn" onclick="newSeason()">New Season</button></div>
+ <div class="tabs"><button class="active">Season</button><button onclick="adminPlayers()">Players</button></div>
+ <div class="card"><h2>${esc(s.name)}</h2><div class="grid grid2">
+ ${fieldSel("League format","af",s.format,[["individual","Individual / rotating partners"],["fixed","Fixed teams"]])}
+ ${fieldNum("Games per pairing per week","ag",s.gamesPerPair,1,10)}
+ ${fieldNum("Play to","at",s.target,1,99)}
+ ${fieldNum("Win by","awb",s.winBy,1,10)}
+ ${fieldNum("RSVP deadline (days before)","ard",s.rsvpDays,0,14)}
+ ${fieldNum("Estimated minutes per game","agm",state.settings.gameMinutes,5,120)}
+ ${fieldNum("Playoff qualifiers","apq",s.playoffQualifiers,2,32)}
+ <div class="field"><label>Playoffs</label><select id="apo"><option value="1" ${s.playoffs?"selected":""}>On</option><option value="0" ${!s.playoffs?"selected":""}>Off</option></select></div>
+ </div><br><button class="btn" onclick="saveAdminSettings()">Save Settings</button></div>
+ <div class="card"><h3>Data / prototype tools</h3><div class="row"><button class="btn ghost sm" onclick="exportData()">Export Backup</button><button class="btn red sm" onclick="resetDemo()">Reset Prototype</button></div></div>`
+}
+function fieldSel(l,id,v,ops){return `<div class="field"><label>${l}</label><select id="${id}">${ops.map(o=>`<option value="${o[0]}" ${v===o[0]?"selected":""}>${o[1]}</option>`).join("")}</select></div>`}
+function fieldNum(l,id,v,min,max){return `<div class="field"><label>${l}</label><input id="${id}" type="number" min="${min}" max="${max}" value="${v}"></div>`}
+function saveAdminSettings(){let s=season();s.format=$("#af").value;s.gamesPerPair=+$("#ag").value;s.target=+$("#at").value;s.winBy=+$("#awb").value;s.rsvpDays=+$("#ard").value;s.playoffs=$("#apo").value==="1";s.playoffQualifiers=+$("#apq").value;state.settings.gameMinutes=+$("#agm").value;save();log("Updated league settings");renderView();toast("Saved")}
+function adminPlayers(){
+ let s=season(); $("#main").innerHTML=`<div class="row between"><div><h1>Players</h1><p class="sub">Invite-only roster</p></div><div class="row"><button class="btn ghost" onclick="go('admin')">Back</button><button class="btn" onclick="invitePlayer()">Invite Player</button></div></div>
+ <div class="card">${state.players.map(p=>`<div class="item row between"><div><b>${esc(p.name)}</b><div class="tiny muted">${esc(p.email||"No email")} • ${p.role}</div></div><div class="row">
+ <button class="btn ghost sm" onclick="toggleSeasonPlayer('${p.id}')">${s.players.includes(p.id)?"Remove from season":"Add to season"}</button>${p.id!==me().id?`<button class="btn ghost sm" onclick="toggleAdmin('${p.id}')">${p.role==="admin"?"Make Player":"Make Admin"}</button>`:""}</div></div>`).join("")}</div>`
+}
+function invitePlayer(){modal(`<h2>Invite Player</h2><div class="stack"><div class="field"><label>Name</label><input id="pn"></div><div class="field"><label>Email</label><input id="pe" type="email"></div><label><input id="ps" type="checkbox"> Substitute pool</label><button class="btn" onclick="saveInvite()">Create Invite</button></div>`)}
+function saveInvite(){
+ let n=$("#pn").value.trim(),e=$("#pe").value.trim();if(!n)return toast("Name required");let p={id:uid("p"),name:n,email:e,role:"member",active:true,sub:$("#ps").checked,inviteCode:Math.random().toString(36).slice(2,8).toUpperCase()};state.players.push(p);season().players.push(p.id);save();closeModal();renderView();modal(`<h2>Invite Created</h2><p><b>${esc(n)}</b></p><div class="notice">Prototype invite code: <b>${p.inviteCode}</b></div><p class="tiny muted">The production app will email a secure invite link instead.</p><button class="btn" onclick="closeModal()">Done</button>`)
+}
+function toggleSeasonPlayer(id){let s=season();s.players=s.players.includes(id)?s.players.filter(x=>x!==id):[...s.players,id];save();adminPlayers()}
+function toggleAdmin(id){let p=player(id);p.role=p.role==="admin"?"member":"admin";save();adminPlayers()}
+function newSeason(){
+ modal(`<h2>New League / Season</h2><div class="stack"><div class="field"><label>Name</label><input id="sn" placeholder="Winter 2027"></div>${fieldSel("Format","sf","individual",[["individual","Individual / rotating partners"],["fixed","Fixed teams"]])}<button class="btn" onclick="saveSeason()">Create</button></div>`)
+}
+function saveSeason(){
+ let n=$("#sn").value.trim();if(!n)return;let s={id:uid("s"),name:n,format:$("#sf").value,status:"active",gameDay:today(),startTime:"18:00",gamesPerPair:2,target:11,winBy:2,bestOf:1,rsvpDays:2,playoffs:true,playoffQualifiers:4,players:state.players.filter(p=>p.active).map(p=>p.id),weeks:[]};state.seasons.push(s);state.activeSeason=s.id;save();closeModal();render()
+}
+function exportData(){
+ let blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="WPBL-backup.json";a.click();URL.revokeObjectURL(a.href)
+}
+function resetDemo(){if(!confirm("Reset all prototype data?"))return;state=fresh();save();session="p_admin";localStorage.setItem(SESSION,session);render()}
+
+function modal(content){$("#modalRoot").innerHTML=`<div class="modalback" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="row between"><span></span><button class="btn ghost sm" onclick="closeModal()">Close</button></div>${content}</div></div>`}
+function closeModal(){$("#modalRoot").innerHTML=""}
+
+render();
 </script>
-
 </body>
 </html>
