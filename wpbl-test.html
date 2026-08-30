@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WPBL — Wall Pickleball League</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
+header{
+  background:#0d2a4f;
+  color:white;
+  padding:18px;
+}
+header h1{margin:0;font-size:26px}
+header p{margin:4px 0 0;opacity:.8}
+main{
+  max-width:700px;
+  margin:auto;
+  padding:16px 14px 90px;
+}
+.card{
+  background:white;
+  border:1px solid #dfe5ee;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:14px;
+}
+.blue{
+  background:#0d2a4f;
+  color:white;
+}
+.badge{
+  display:inline-block;
+  background:#eaf1fb;
+  color:#1459a6;
+  padding:5px 9px;
+  border-radius:99px;
+  font-size:12px;
+  font-weight:700;
+}
+button{
+  border:0;
+  border-radius:10px;
+  padding:10px 13px;
+  background:#1459a6;
+  color:white;
+  font-weight:700;
+}
+nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  background:white;
+  border-top:1px solid #ddd;
+}
+nav button{
+  background:white;
+  color:#667085;
+  border-radius:0;
+  padding:14px 2px;
+  font-size:12px;
+}
+nav button.active{color:#1459a6}
+.view{display:none}
+.view.active{display:block}
+table{width:100%;border-collapse:collapse}
+td,th{padding:9px;border-bottom:1px solid #eee;text-align:left}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>WPBL</h1>
+  <p>Wall Pickleball League</p>
+</header>
+
+<main>
+
+<section id="home" class="view active">
+  <div class="card blue">
+    <span class="badge">FALL 2026</span>
+    <h2>Welcome to WPBL</h2>
+    <p>Rotating partners • individual standings</p>
+    <button onclick="show('schedule')">View This Week</button>
+  </div>
+
+  <div class="card">
+    <h3>Your Availability</h3>
+    <button onclick="this.innerText='✓ Playing'">Playing</button>
+    <button style="background:#d8242f"
+      onclick="this.innerText='✕ Not Playing'">
+      Not Playing
+    </button>
+  </div>
+
+  <div class="card">
+    <h3>Current Game</h3>
+    <b>Stephen & Player 2</b>
+    <p>vs.</p>
+    <b>Player 3 & Player 4</b>
+  </div>
+</section>
+
+
+<section id="schedule" class="view">
+  <div class="card">
+    <h2>Week 1 Schedule</h2>
+
+    <p><b>6:00 PM</b><br>
+    Stephen / Player 2 vs Player 3 / Player 4</p>
+
+    <hr>
+
+    <p><b>6:20 PM</b><br>
+    Player 5 / Player 6 vs Player 7 / Player 8</p>
+
+    <hr>
+
+    <p><b>6:40 PM</b><br>
+    Stephen / Player 2 vs Player 5 / Player 6</p>
+  </div>
+</section>
+
+
+<section id="live" class="view">
+  <div class="card">
+    <span class="badge">CURRENT GAME</span>
+    <h2>Stephen & Player 2</h2>
+    <p>vs</p>
+    <h2>Player 3 & Player 4</h2>
+
+    <input id="a" type="number" placeholder="Score"
+      style="width:80px;padding:10px">
+    -
+    <input id="b" type="number" placeholder="Score"
+      style="width:80px;padding:10px">
+
+    <br><br>
+
+    <button onclick="submitScore()">Submit Score</button>
+
+    <p id="result"></p>
+  </div>
+</section>
+
+
+<section id="standings" class="view">
+  <div class="card">
+    <h2>Standings</h2>
+    <p>Ranked by Win % → Head-to-Head → Point Differential</p>
+
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Player</th>
+        <th>W-L</th>
+        <th>Win %</th>
+      </tr>
+
+      <tr>
+        <td>1</td>
+        <td>Stephen</td>
+        <td>4-1</td>
+        <td>80%</td>
+      </tr>
+
+      <tr>
+        <td>2</td>
+        <td>Player 2</td>
+        <td>3-2</td>
+        <td>60%</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+
+<section id="more" class="view">
+  <div class="card">
+    <h2>League Tools</h2>
+    <p>💬 Message Board</p>
+    <p>🏆 Playoffs</p>
+    <p>👤 Player Profile</p>
+    <p>🛡 Administrator Controls</p>
+    <p>⚙ League Settings</p>
+  </div>
+
+  <div class="card">
+    <h3>Administrator</h3>
+    <p>You will have full control over players, schedules, scores, seasons and playoff seeds.</p>
+  </div>
+</section>
+
+</main>
+
+
+<nav>
+<button class="active" onclick="show('home',this)">Home</button>
+<button onclick="show('schedule',this)">Schedule</button>
+<button onclick="show('live',this)">Live</button>
+<button onclick="show('standings',this)">Standings</button>
+<button onclick="show('more',this)">More</button>
+</nav>
+
+
+<script>
+function show(id,button){
+  document.querySelectorAll(".view").forEach(
+    x=>x.classList.remove("active")
+  );
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll("nav button").forEach(
+    x=>x.classList.remove("active")
+  );
+
+  if(button) button.classList.add("active");
+}
+
+function submitScore(){
+  const a=document.getElementById("a").value;
+  const b=document.getElementById("b").value;
+
+  if(a==="" || b===""){
+    alert("Enter both scores.");
+    return;
+  }
+
+  document.getElementById("result").innerHTML=
+    "<b>Score submitted: "+a+"-"+b+"</b><br>Waiting for opposing team confirmation.";
+}
+</script>
+
+</body>
+</html>
