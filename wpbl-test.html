@@ -1,281 +1,76 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0d2a4f">
-<title>WPBL — Wall Pickleball League</title>
-<style>
-:root{--navy:#0d2a4f;--blue:#1459a6;--red:#d8242f;--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#6b7485;--line:#dfe5ee;--ok:#147d4b;--warn:#a35a00}
-*{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}.hidden{display:none!important}
-.app{min-height:100vh}.topbar{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px #0002}
-.logo{width:54px;height:36px;object-fit:contain;border-radius:6px}.brand{display:flex;align-items:center;gap:10px;flex:1}.brand strong{font-size:19px}.brand small{display:block;opacity:.8}
-.top-actions{display:flex;gap:8px}.iconbtn{background:#ffffff18;border:1px solid #ffffff33;color:#fff;border-radius:10px;padding:9px 11px}
-.control{background:#fff;border-bottom:1px solid var(--line);padding:10px 14px;display:flex;gap:10px;align-items:center;overflow:auto;position:sticky;top:57px;z-index:15}
-.control label{font-size:12px;color:var(--muted)}select,input,textarea{border:1px solid var(--line);border-radius:10px;padding:9px;background:#fff;color:var(--text)}
-select{min-width:130px}.main{max-width:980px;margin:0 auto;padding:16px 14px 88px}
-.nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:30;padding-bottom:env(safe-area-inset-bottom)}
-.nav button{border:0;background:#fff;padding:10px 4px 8px;color:#657087;font-size:11px}.nav button.active{color:var(--blue);font-weight:700}.nav span{display:block;font-size:20px;margin-bottom:2px}
-h1{font-size:25px;margin:2px 0 4px}h2{font-size:19px;margin:0 0 12px}h3{font-size:16px;margin:0 0 10px}.sub{color:var(--muted);margin:0 0 16px}
-.grid{display:grid;gap:12px}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 3px 14px #17315a0a;margin-bottom:12px}
-.hero{background:linear-gradient(135deg,var(--navy),#173e72);color:#fff;border:0}.hero .sub{color:#dce8fa}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.kpi{background:#f7f9fc;border-radius:12px;padding:11px;text-align:center}.kpi b{font-size:20px;display:block}.kpi small{color:var(--muted)}
-@media(max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}}
-.btn{border:0;border-radius:11px;padding:10px 13px;font-weight:700;background:var(--blue);color:#fff}.btn.red{background:var(--red)}.btn.ghost{background:#eef3f9;color:var(--navy)}.btn.ok{background:var(--ok)}.btn.sm{padding:7px 9px;font-size:13px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row.between{justify-content:space-between}.stack{display:flex;flex-direction:column;gap:9px}
-.badge{display:inline-block;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700;background:#eaf1fb;color:var(--blue)}.badge.red{background:#fdecef;color:var(--red)}.badge.ok{background:#e9f7f0;color:var(--ok)}.badge.warn{background:#fff2df;color:var(--warn)}
-.list{display:flex;flex-direction:column;gap:8px}.item{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}.muted{color:var(--muted)}.tiny{font-size:12px}.right{text-align:right}
-table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px 7px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted);font-size:12px}.tablewrap{overflow:auto}
-.game{border-left:5px solid var(--blue)}.game.current{border-left-color:var(--red);box-shadow:0 0 0 2px #d8242f18}.game.done{opacity:.72}.game.pending{border-left-color:#e1a100}
-.scoreline{font-size:22px;font-weight:800}.vs{font-size:12px;color:var(--muted);font-weight:700}
-.tabs{display:flex;gap:6px;overflow:auto;margin:0 0 12px}.tabs button{white-space:nowrap;border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px}.tabs button.active{background:var(--navy);color:#fff}
-.modalback{position:fixed;inset:0;background:#06152bcc;display:flex;align-items:flex-end;justify-content:center;z-index:80}.modal{width:min(680px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:20px 20px 0 0;padding:18px}
-.auth{min-height:100vh;background:linear-gradient(135deg,#0d2a4f,#164e8d);display:grid;place-items:center;padding:20px}.authbox{background:#fff;width:min(440px,100%);border-radius:20px;padding:22px;text-align:center}.authlogo{width:180px;max-height:120px;object-fit:contain}
-.notice{padding:10px 12px;border-radius:10px;background:#eef5ff;color:#174d85;font-size:13px}.notice.warn{background:#fff3df;color:#8a4e00}.notice.ok{background:#eaf8f0;color:#17623e}
-textarea{width:100%;min-height:90px;resize:vertical}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted);font-weight:600}.field input,.field select{width:100%}
-.pollopt{display:flex;align-items:center;gap:8px;padding:8px;border:1px solid var(--line);border-radius:10px}.thread-title{font-weight:800}.comment{padding:8px 0;border-top:1px solid var(--line)}
-.bracket{display:grid;gap:10px}.matchup{padding:11px;border:1px solid var(--line);border-radius:12px}.seed{font-size:11px;color:var(--muted);margin-right:4px}
-hr{border:0;border-top:1px solid var(--line);margin:14px 0}.danger{color:var(--red)}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WPBL Login Test</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0d2a4f;margin:0;padding:24px}
+    .box{max-width:420px;margin:60px auto;background:white;padding:24px;border-radius:18px}
+    h1{margin-top:0}
+    input,button{width:100%;box-sizing:border-box;padding:12px;margin-top:10px;border-radius:10px;font-size:16px}
+    input{border:1px solid #ccc}
+    button{border:0;background:#1459a6;color:white;font-weight:700}
+    #msg{margin-top:14px;color:#555}
+  </style>
 </head>
 <body>
-<div id="root"></div>
+
+<div class="box">
+  <h1>WPBL</h1>
+  <p>Secure login test</p>
+
+  <input id="email" type="email" placeholder="Email address">
+  <button onclick="sendLink()">Email me a secure sign-in link</button>
+
+  <div id="msg"></div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+const SUPABASE_URL = "https://trujrwhkkjepyorpvjjr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_RcP9-stV689diug__RIZkg_g5agpSNR";
 
-const SUPABASE_URL="https://trujrwhkkjepyorpvjjr.supabase.co";
-const SUPABASE_KEY="sb_publishable_RcP9-stV689diug__RIZkg_g5agpSNR";
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const LOGO="https://asnehpets.github.io/GLOAT-League/wpbl-logo.png";
+async function sendLink() {
+  const email = document.getElementById("email").value.trim();
+  const msg = document.getElementById("msg");
 
-const KEY="wpbl_state_v2_secure";
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const uid=(p="id")=>p+"_"+Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4);
-const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-const fmtTime=d=>new Date(d).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
-const fmtDate=d=>new Date(d+"T12:00:00").toLocaleDateString([], {month:"short",day:"numeric",year:"numeric"});
-const addMin=(d,m)=>new Date(new Date(d).getTime()+m*60000).toISOString();
-const today=()=>new Date().toISOString().slice(0,10);
-
-function fresh(adminId="",adminName="Stephen",adminEmail=""){
-  const admin={id:adminId||"p_admin",name:adminName||"Stephen",email:adminEmail||"",role:"admin",active:true,sub:false};
-  const season={id:"s1",name:"Fall 2026",format:"individual",status:"active",gameDay:today(),startTime:"18:00",gamesPerPair:2,target:11,winBy:2,bestOf:1,rsvpDays:2,playoffs:true,playoffQualifiers:4,players:[admin.id],weeks:[]};
-  return {version:2,players:[admin],seasons:[season],activeSeason:"s1",board:[],audit:[],settings:{gameMinutes:18,globalBoard:true}};
-}
-
-let state=load(), currentView="home", session="", authSession=null;
-
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||fresh()}catch(e){return fresh()}}
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function me(){return state.players.find(p=>p.id===session)}
-function season(){return state.seasons.find(s=>s.id===state.activeSeason)||state.seasons[0]}
-function week(){let s=season();if(!s)return null;return s.weeks.find(w=>w.id===s.activeWeek)||s.weeks.at(-1)||null}
-function player(id){return state.players.find(p=>p.id===id)}
-function pname(id){return player(id)?.name||"Unknown"}
-function isAdmin(){return me()?.role==="admin"}
-function log(action){state.audit.unshift({at:new Date().toISOString(),by:me()?.name||"System",action});state.audit=state.audit.slice(0,100);save()}
-function toast(msg){let el=$("#toast");if(!el)return alert(msg);el.textContent=msg;el.style.opacity=1;setTimeout(()=>el.style.opacity=0,1800)}
-function deadlineFor(s,w){let d=new Date((w.date||s.gameDay)+"T"+(s.startTime||"18:00"));d.setDate(d.getDate()-(s.rsvpDays||2));return d}
-function isLocked(s,w){return new Date()>deadlineFor(s,w)&&!w.rsvpReopened}
-
-async function boot(){
-  const {data:{session:s}}=await sb.auth.getSession();
-  authSession=s;
-  session=s?.user?.id||"";
-
-  if(!session){
-    renderAuth();
+  if (!email) {
+    msg.textContent = "Enter your email.";
     return;
   }
 
-  const {data:profile,error}=await sb.from("profiles").select("*").eq("id",session).single();
+  msg.textContent = "Sending...";
 
-  if(error){
-    root.innerHTML=`<div class="auth"><div class="authbox"><h2>WPBL</h2><p>${esc(error.message)}</p><button class="btn" onclick="logout()">Sign out</button></div></div>`;
-    return;
-  }
-
-  if(!state.players.some(p=>p.id===session)){
-    state=fresh(session,profile.name||"Stephen",profile.email||s.user.email||"");
-    save();
-  }else{
-    let p=state.players.find(p=>p.id===session);
-    p.name=profile.name||p.name;
-    p.email=profile.email||s.user.email||p.email;
-    p.role=profile.role||p.role;
-    save();
-  }
-
-  render();
-}
-
-sb.auth.onAuthStateChange(async (_event,s)=>{
-  authSession=s;
-  session=s?.user?.id||"";
-  if(session)await boot();
-  else renderAuth();
-});
-
-async function sendMagicLink(){
-  const email=$("#loginEmail")?.value?.trim().toLowerCase();
-
-  if(!email){
-    alert("Enter your email.");
-    return;
-  }
-
-  const {error}=await sb.auth.signInWithOtp({
+  const { error } = await sb.auth.signInWithOtp({
     email,
-    options:{
-      emailRedirectTo:location.origin+location.pathname,
-      shouldCreateUser:false
+    options: {
+      shouldCreateUser: false,
+      emailRedirectTo: "https://asnehpets.github.io/GLOAT-League/wpbl-test.html"
     }
   });
 
-  if(error){
-    if(
-      String(error.message||"").toLowerCase().includes("signups not allowed") ||
-      String(error.message||"").toLowerCase().includes("user not found")
-    ){
-      alert("That email has not been invited to WPBL.");
-      return;
-    }
-
-    alert(error.message);
-    return;
+  if (error) {
+    msg.textContent = error.message;
+  } else {
+    msg.textContent = "Check your email for the secure sign-in link.";
   }
-
-  $("#authMsg").textContent="Check your email for the secure WPBL sign-in link.";
 }
 
-async function logout(){
-  await sb.auth.signOut();
-  session="";
-  renderAuth();
+async function checkSession() {
+  const { data } = await sb.auth.getSession();
+
+  if (data.session) {
+    document.querySelector(".box").innerHTML =
+      "<h1>WPBL</h1><p><b>Secure login worked.</b></p><p>You are signed in.</p>";
+  }
 }
 
-function render(){
-  if(!session||!me())return renderAuth();
+checkSession();
+</script>
 
-  const s=season();
-
-  root.innerHTML=`<div class="app">
-  <header class="topbar">
-    <div class="brand">
-      <img class="logo" src="${LOGO}">
-      <div>
-        <strong>WPBL</strong>
-        <small>Wall Pickleball League</small>
-      </div>
-    </div>
-    <div class="top-actions">
-      <button class="iconbtn" onclick="go('board')">💬</button>
-      <button class="iconbtn" onclick="go('profile')">👤</button>
-    </div>
-  </header>
-
-  <div class="control">
-    <label>League / Season<br>
-      <select id="seasonSel">
-        ${state.seasons.map(x=>`<option value="${x.id}" ${x.id===state.activeSeason?"selected":""}>${esc(x.name)}</option>`).join("")}
-      </select>
-    </label>
-    ${s?`<span class="badge ${s.format==="individual"?"":"red"}">${s.format==="individual"?"Rotating Partners":"Fixed Teams"}</span>`:""}
-  </div>
-
-  <main id="main" class="main"></main>
-
-  <nav class="nav">
-    ${navbtn("home","⌂","Home")}
-    ${navbtn("schedule","▣","Schedule")}
-    ${navbtn("live","▶","Live")}
-    ${navbtn("standings","★","Standings")}
-    ${navbtn("more","☰","More")}
-  </nav>
-
-  <div id="modalRoot"></div>
-  <div id="toast" style="position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#172033;color:#fff;padding:9px 13px;border-radius:999px;z-index:100;opacity:0;transition:.2s"></div>
-  </div>`;
-
-  $("#seasonSel").onchange=e=>{
-    state.activeSeason=e.target.value;
-    save();
-    render();
-  };
-
-  renderView();
-}
-
-function navbtn(v,i,l){
-  return `<button onclick="go('${v}')" class="${currentView===v?"active":""}"><span>${i}</span>${l}</button>`;
-}
-
-function go(v){
-  currentView=v;
-  renderView();
-  $$(".nav button").forEach(b=>b.classList.toggle("active",b.getAttribute("onclick")?.includes(`'${v}'`)));
-}
-
-function renderAuth(){
-  root.innerHTML=`<div class="auth">
-    <div class="authbox">
-      <img class="authlogo" src="${LOGO}">
-      <h1>WPBL</h1>
-      <p class="sub">Wall Pickleball League</p>
-
-      <div class="notice">
-        Invite-only league. Sign in with the email address invited by the commissioner.
-      </div>
-
-      <br>
-
-      <div class="field">
-        <label>Email</label>
-        <input id="loginEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
-      </div>
-
-      <br>
-
-      <button class="btn" style="width:100%" onclick="sendMagicLink()">
-        Email me a secure sign-in link
-      </button>
-
-      <p id="authMsg" class="tiny muted"></p>
-    </div>
-  </div>`;
-}
-
-function renderView(){
-  const el=$("#main");
-  if(!el)return;
-
-  const map={
-    home:homeView,
-    schedule:scheduleView,
-    live:liveView,
-    standings:standingsView,
-    board:boardView,
-    more:moreView,
-    profile:profileView,
-    admin:adminView,
-    playoffs:playoffsView
-  };
-
-  (map[currentView]||homeView)(el);
-}
-
-function homeView(el){
-  const s=season(),w=week();
-  let mine=w?.availability?.[me().id];
-  const cur=w?.games?.find(g=>g.status!=="confirmed");
-
-  el.innerHTML=`
-  <h1>${esc(s?.name||"WPBL")}</h1>
-  <p class="sub">${s?.format==="individual"?"Individual standings • weekly rotating partners":"Fixed-team league"}</p>
-
-  <div class="card hero">
-    <h2>${w?`Week ${w.number} — ${fmtDate(w.date)}`:"Season ready"}</h2>
-    <p class="sub">${w?`RSVP deadline: ${
+</body>
+</html>
