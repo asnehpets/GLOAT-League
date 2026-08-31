@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d2a4f">
+<title>WPBL — Wall Pickleball League</title>
+
+<style>
+:root{
+  --navy:#0d2a4f;
+  --blue:#1459a6;
+  --red:#d8242f;
+  --bg:#f4f7fb;
+  --card:#fff;
+  --text:#172033;
+  --muted:#6b7485;
+  --line:#dfe5ee;
+  --ok:#147d4b;
+  --warn:#a35a00
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text)
+}
+button,input,select,textarea{font:inherit}
+.app{min-height:100vh}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:var(--navy);
+  color:#fff;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:12px
+}
+.logo{
+  width:54px;
+  height:42px;
+  object-fit:contain
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex:1
+}
+.brand strong{font-size:19px}
+.brand small{display:block;opacity:.8}
+.top-actions{display:flex;gap:8px}
+.iconbtn{
+  background:#ffffff18;
+  border:1px solid #ffffff33;
+  color:#fff;
+  border-radius:10px;
+  padding:9px 11px
+}
+.control{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:10px 14px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  overflow:auto;
+  position:sticky;
+  top:62px;
+  z-index:15
+}
+.control label{
+  font-size:12px;
+  color:var(--muted)
+}
+select,input,textarea{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px;
+  background:#fff;
+  color:var(--text)
+}
+select{min-width:130px}
+.main{
+  max-width:980px;
+  margin:0 auto;
+  padding:16px 14px 92px
+}
+.nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  background:#fff;
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  z-index:30;
+  padding-bottom:env(safe-area-inset-bottom)
+}
+.nav button{
+  border:0;
+  background:#fff;
+  padding:10px 4px 8px;
+  color:#657087;
+  font-size:11px
+}
+.nav button.active{
+  color:var(--blue);
+  font-weight:700
+}
+.nav span{
+  display:block;
+  font-size:20px;
+  margin-bottom:2px
+}
+h1{font-size:25px;margin:2px 0 4px}
+h2{font-size:19px;margin:0 0 12px}
+h3{font-size:16px;margin:0 0 10px}
+.sub{color:var(--muted);margin:0 0 16px}
+.grid{display:grid;gap:12px}
+.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:680px){
+  .grid2{grid-template-columns:1fr}
+}
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:12px
+}
+.hero{
+  background:linear-gradient(135deg,var(--navy),#173e72);
+  color:#fff;
+  border:0
+}
+.hero .sub{color:#dce8fa}
+.btn{
+  border:0;
+  border-radius:11px;
+  padding:10px 13px;
+  font-weight:700;
+  background:var(--blue);
+  color:#fff
+}
+.btn.red{background:var(--red)}
+.btn.ghost{background:#eef3f9;color:var(--navy)}
+.btn.ok{background:var(--ok)}
+.btn.sm{padding:7px 9px;font-size:13px}
+.row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap
+}
+.row.between{justify-content:space-between}
+.stack{display:flex;flex-direction:column;gap:9px}
+.badge{
+  display:inline-block;
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:12px;
+  font-weight:700;
+  background:#eaf1fb;
+  color:var(--blue)
+}
+.badge.red{background:#fdecef;color:var(--red)}
+.badge.ok{background:#e9f7f0;color:var(--ok)}
+.badge.warn{background:#fff2df;color:var(--warn)}
+.item{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px;
+  background:#fff
+}
+.muted{color:var(--muted)}
+.tiny{font-size:12px}
+.right{text-align:right}
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px
+}
+th,td{
+  padding:9px 7px;
+  border-bottom:1px solid var(--line);
+  text-align:left
+}
+th{
+  color:var(--muted);
+  font-size:12px
+}
+.tablewrap{overflow:auto}
+.game{border-left:5px solid var(--blue)}
+.game.current{border-left-color:var(--red)}
+.game.done{opacity:.72}
+.game.pending{border-left-color:#e1a100}
+.scoreline{font-size:22px;font-weight:800}
+.vs{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:700
+}
+.tabs{
+  display:flex;
+  gap:6px;
+  overflow:auto;
+  margin:0 0 12px
+}
+.tabs button{
+  white-space:nowrap;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fff;
+  padding:7px 11px
+}
+.tabs button.active{
+  background:var(--navy);
+  color:#fff
+}
+.modalback{
+  position:fixed;
+  inset:0;
+  background:#06152bcc;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:80
+}
+.modal{
+  width:min(680px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:20px 20px 0 0;
+  padding:18px
+}
+.auth{
+  min-height:100vh;
+  background:linear-gradient(135deg,#0d2a4f,#164e8d);
+  display:grid;
+  place-items:center;
+  padding:20px
+}
+.authbox{
+  background:#fff;
+  width:min(440px,100%);
+  border-radius:20px;
+  padding:22px;
+  text-align:center
+}
+.authlogo{
+  width:180px;
+  max-height:120px;
+  object-fit:contain
+}
+.notice{
+  padding:10px 12px;
+  border-radius:10px;
+  background:#eef5ff;
+  color:#174d85;
+  font-size:13px
+}
+.notice.warn{
+  background:#fff3df;
+  color:#8a4e00
+}
+textarea{
+  width:100%;
+  min-height:90px;
+  resize:vertical
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:5px
+}
+.field label{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:600
+}
+.field input,.field select{width:100%}
+.pollopt{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px;
+  border:1px solid var(--line);
+  border-radius:10px
+}
+.thread-title{font-weight:800}
+.comment{
+  padding:8px 0;
+  border-top:1px solid var(--line)
+}
+hr{
+  border:0;
+  border-top:1px solid var(--line);
+  margin:14px 0
+}
+</style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL="https://trujrwhkkjepyorpvjjr.supabase.co";
+const SUPABASE_KEY="sb_publishable_RcP9-stV689diug__RIZkg_g5agpSNR";
+
+const sb=window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const LOGO=
+"https://asnehpets.github.io/GLOAT-League/wpbl-logo.png";
+
+const KEY="wpbl_state_secure_v4";
+
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+
+const uid=(p="id")=>
+p+"_"+Math.random().toString(36).slice(2,9);
+
+const esc=s=>
+String(s??"").replace(/[&<>"']/g,m=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[m]));
+
+const today=()=>
+new Date().toISOString().slice(0,10);
+
+const fmtDate=d=>
+new Date(d+"T12:00:00")
+.toLocaleDateString([],{
+month:"short",
+day:"numeric",
+year:"numeric"
+});
+
+let state=null;
+let session="";
+let currentView="home";
+
+function displayProfileName(profile){
+  const full=[
+    profile?.first_name,
+    profile?.last_name
+  ].filter(Boolean).join(" ").trim();
+
+  return full || profile?.name || "Player";
+}
+
+function fresh(adminId,profile,email){
+  const admin={
+    id:adminId,
+    first_name:profile?.first_name||"",
+    last_name:profile?.last_name||"",
+    name:displayProfileName(profile),
+    email:email||"",
+    role:profile?.role||"admin",
+    active:true,
+    sub:profile?.is_substitute||false
+  };
+
+ 
